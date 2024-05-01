@@ -1,0 +1,59 @@
+swagger: '2.0'
+info:
+  title: API Documentation
+  description: Documentation for your API endpoints
+  version: '1.0'
+paths:
+  /posts/:
+    get:
+      summary: Retrieve posts
+      parameters:
+        - name: page
+          in: query
+          description: Page number (default: 1)
+          required: false
+          type: integer
+        - name: limit
+          in: query
+          description: Number of posts per page (default: 10)
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Post'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+  /save-image/:
+    get:
+      summary: "Save image from URL"
+      description: "Saves an image from a given URL"
+      responses:
+        200:
+          description: "OK"
+        500:
+          description: "Internal Server Error"
+
+definitions:
+  Post:
+    type: object
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+      content:
+        type: string
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
