@@ -45,10 +45,11 @@ app.get("/save-image/", async (req, res) => {
 
 app.get("/get-latest-post-periodically/", async (req, res) => {
   // Schedule the cron job to run every 2 minutes
+  let post = null
   cron.schedule("*/2 * * * *", async () => {
     try {
       // Add your existing code here
-      const post = await scrapeLatestPost();
+     post = await scrapeLatestPost();
       const newPost = await Post.create({
         id: post.id,
         likes: post.likes,
@@ -56,10 +57,7 @@ app.get("/get-latest-post-periodically/", async (req, res) => {
 
         text: post.text,
       });
-      // save image to local disk in current dir
-      saveImageFromUrl(post.image, `image_${post.id}.png`);
-      // Log the newly created post as a confirmation
-      console.log("New post created:", newPost);
+     res.json(post)
     } catch (error) {
       console.error("Error creating new post:", error);
     }
