@@ -38,6 +38,15 @@ paths:
           description: "OK"
         500:
           description: "Internal Server Error"
+  /get-latest-post-periodically/:
+    get:
+      summary: "Get latest post periodically"
+      description: "Fetches the latest post periodically"
+      responses:
+        200:
+          description: "OK"
+        500:
+          description: "Internal Server Error"
 
 definitions:
   Post:
